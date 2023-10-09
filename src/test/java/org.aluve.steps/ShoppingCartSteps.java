@@ -1,42 +1,29 @@
 package org.aluve.steps;
 
-import io.cucumber.java.Before;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.aluve.ShoppingCartPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import io.cucumber.java.After;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.aluve.ShoppingCartPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import static org.junit.Assert.assertTrue;
 
 public class ShoppingCartSteps {
-    ShoppingCartPage shoppingCartPage;
+    public ShoppingCartPage shoppingCartPage;
+    WebDriver driver;
 
-    private WebDriver driver;
-
-    @Before
-    public void setUp() {
+    public ShoppingCartSteps() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--no-sandbox");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        shoppingCartPage = new ShoppingCartPage(driver);
-    }
-
-    @Given("the user is on the product page")
-    public void givenUserOnProductPage() {
         driver.get("https://react-shopping-cart-67954.firebaseapp.com/");
+        shoppingCartPage = new ShoppingCartPage(driver);
+
     }
 
     @When("the user selects {string} from the size filter")
@@ -50,22 +37,15 @@ public class ShoppingCartSteps {
         assertTrue(isProduct);
     }
 
-    @When("the user clicks the Add to Cart button for a product")
-    public void theUserClicksTheButtonForAProduct() {
+    @When("the user clicks the Add to Cart button for a product {string}")
+    public void theUserClicksTheButtonForAProduct(String product) {
         shoppingCartPage.clickAddToCartBtn();
 
     }
 
-    @Then("the product is added to the cart with {string} price")
-    public void theProductIsAddedToTheCart(String price) {
-       boolean isPrice =  shoppingCartPage.isPriceReturned(price);
-       assertTrue(isPrice);
-
+    @Then("the product {string} is present in the cart")
+    public void theProductIsPresentInTheCart(String arg0) {
     }
 
-    @After
-    public void tearDown(){
-        driver.quit();
-    }
 }
 

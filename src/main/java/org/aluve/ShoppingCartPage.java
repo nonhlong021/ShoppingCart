@@ -17,7 +17,7 @@ public class ShoppingCartPage {
     }
 
     By byAddToCart = By.xpath("//button[contains(text(),'Add to cart')]");
-    By byProduct = By.xpath("//div[@class='sc-uhudcz-0 iZZGui']//div[@alt='Cropped Stay Groovy off white']");
+    By byProduct = By.xpath("//main[@class='sc-ebmerl-4 iliWeY']//p");
     By byPrice = By.xpath("//div[@class='sc-1h98xa9-8 bciIxg']//p[contains(text(), '$')]");
 
 
